@@ -2,6 +2,7 @@ package com.example.recyclerview;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -28,15 +29,18 @@ for(int i =0; i<10; i++){
         RecyclerViewAdapter resultAdapter = new RecyclerViewAdapter(item);
         final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerview_search_results);
         //spanCount를 조정하여 한 줄에 몇개의 아이템이 들어갈지를 정한다.
-        GridLayoutManager layoutManager = new GridLayoutManager(RecyclerActivity.this, 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(RecyclerActivity.this, 1);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         //Decotation 클래스를 이용해 간격을 조절한다.
         RecyclerDecoration spaceDecoration = new RecyclerDecoration(25);
         recyclerView.addItemDecoration(spaceDecoration);
         recyclerView.setAdapter(resultAdapter);
-
         resultAdapter.notifyDataSetChanged();
+
+        //뷰페이저 처럼 화면전환 가능
+        PagerSnapHelper snapHelper = new PagerSnapHelper();
+        snapHelper.attachToRecyclerView(recyclerView);
     }
 
     private HashMap<String, Object> putItem(int img, String name, String price, String store) {
