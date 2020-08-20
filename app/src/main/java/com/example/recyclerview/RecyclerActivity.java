@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,12 +23,12 @@ public class RecyclerActivity extends AppCompatActivity {
         text.setText("검색결과");
         item = new ArrayList<HashMap<String, Object>>();
 
-for(int i =0; i<10; i++){
-    item.add(putItem(R.drawable.gntver,"count"+i,"100"+i,"store"));
-}
+        for (int i = 0; i < 10; i++) {
+            item.add(putItem(R.drawable.gntver, "count" + i, "100" + i, "store"));
+        }
 
         RecyclerViewAdapter resultAdapter = new RecyclerViewAdapter(item);
-        final RecyclerView recyclerView = (RecyclerView)findViewById(R.id.recyclerview_search_results);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview_search_results);
         //spanCount를 조정하여 한 줄에 몇개의 아이템이 들어갈지를 정한다.
         GridLayoutManager layoutManager = new GridLayoutManager(RecyclerActivity.this, 1);
         recyclerView.setHasFixedSize(true);
@@ -41,6 +42,20 @@ for(int i =0; i<10; i++){
         //뷰페이저 처럼 화면전환 가능
         PagerSnapHelper snapHelper = new PagerSnapHelper();
         snapHelper.attachToRecyclerView(recyclerView);
+//값을 전달받을 일반 클릭 이벤트
+        resultAdapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+
+            }
+        });
+//값을 전달받을 롱 클릭 이벤트
+        resultAdapter.setOnItemLongClickListener(new RecyclerViewAdapter.OnItemLongClickListener() {
+            @Override
+            public void onItemLongClick(View v, int pos) {
+
+            }
+        });
     }
 
     private HashMap<String, Object> putItem(int img, String name, String price, String store) {
